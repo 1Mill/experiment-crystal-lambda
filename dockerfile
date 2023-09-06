@@ -6,12 +6,11 @@ FROM crystallang/crystal:1-alpine as builder
 WORKDIR /app
 
 # Cache dependencies
-COPY ./shard.yml ./shard.lock ./
-RUN shards install --production -v
-
-# Build a binary
 COPY . .
-RUN shards build --static --no-debug --release --production -v
+RUN \
+	shards install --production -v && \
+	shards build --static --no-debug --release --production -v && \
+	strip ./bin/bootstrap
 
 # ===============
 # Result image with one layer
@@ -19,6 +18,6 @@ FROM alpine:latest
 
 WORKDIR /
 
-COPY --from=builder /app/bin/main .
+COPY --from=builder /app/bin/bootstrap .
 
-ENTRYPOINT ["/main"]
+CMD ["/bootstrap"]

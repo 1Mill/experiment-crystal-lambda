@@ -1,4 +1,4 @@
-# * https://jtway.co/dockerfile-for-a-crystal-application-1e9db24efbc2?gi=1d8da9609e5a
+# * https://jtway.co/dockerfile-for-a-crystal-application-1e9db24efbc2
 
 # Build image
 FROM crystallang/crystal:1-alpine as builder
